@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://bullets/bullet1.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.101961, 0.678431, 0.113725, 1 )
+
+[sub_resource type="CubeMesh" id=1]
+material = SubResource( 2 )
+size = Vector3( 0.15, 0.15, 0.15 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.075, 0.075, 0.075 )
+
+[node name="bullet1" type="Area"]
+collision_mask = 5
+script = ExtResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 3 )
+
+[node name="killTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+[connection signal="body_entered" from="." to="." method="_on_bullet1_body_entered"]
+[connection signal="timeout" from="killTimer" to="." method="_on_killTimer_timeout" flags=3]
