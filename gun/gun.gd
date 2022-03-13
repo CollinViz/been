@@ -4,6 +4,7 @@ class_name GunBase
 export var muzzelSpeed:=30
 export var CoolDownValue:=0.25
 export(PackedScene) var Bullet
+export var base_damage:=1
 
 onready var muzzel = $muzzel
 onready var CoolDown:Timer = $Cooldown
@@ -19,6 +20,7 @@ func shoot():
 		var newBullet:Spatial = Bullet.instance()
 		newBullet.global_transform = muzzel.global_transform
 		newBullet.speed = muzzelSpeed
+		newBullet.base_damage = base_damage
 		get_parent().get_parent().get_parent().get_parent().add_child(newBullet)
 		_can_shoot = false
 		CoolDown.start(CoolDownValue)

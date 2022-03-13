@@ -1,6 +1,6 @@
 extends Spatial
 
-
+export var base_damage:=1
 export var speed:=30
 
 
@@ -17,7 +17,11 @@ func _on_killTimer_timeout():
 	queue_free()
 
 
-func _on_bullet1_body_entered(body):
+func _on_bullet1_body_entered(body:Node):
+	if body.has_node("Stats"):
+		body.get_node("Stats").take_damage(base_damage)
 	print("Hit something")
 	queue_free()
+	
+
 

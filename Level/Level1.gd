@@ -9,11 +9,12 @@ onready var main_camera:Camera = get_node(camera_node)
 onready var main_player:KinematicBody = get_node(player_node)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	GameData.ActiveNaveMesh = $Navigation
+	GameData.ActivePlayer = $Player
 
 func _physics_process(delta):
-	
+	if !main_player || main_player==null || main_player.is_queued_for_deletion():
+		return
 	var mouse_possition = get_viewport().get_mouse_position()
 	ray_origin = main_camera.project_ray_origin(mouse_possition)
 	

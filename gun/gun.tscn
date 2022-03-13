@@ -10,7 +10,7 @@ uv1_scale = Vector3( 0.15, 0.5, 0.15 )
 
 [node name="Gun" type="Spatial"]
 script = ExtResource( 2 )
-muzzelSpeed = 5
+muzzelSpeed = 15
 CoolDownValue = 0.15
 Bullet = ExtResource( 3 )
 

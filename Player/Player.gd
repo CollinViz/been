@@ -7,9 +7,14 @@ export(NodePath) var leftHandNodePath
 onready var leftHand = get_node(leftHandNodePath)
 onready var gunController=$GunController
 
+onready var normal_colour = preload("res://Player/Normal.tres")
+onready var hit_colour = preload("res://Player/Hit.tres")
+
+onready var _body = $body
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	GameData.ActivePlayer = self
 
 
 func get_input()-> Vector3:
@@ -30,3 +35,14 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("primary_action"):
 		gunController.shoot()
+
+
+func _on_Stats_death():
+	GameData.player_death()	
+	call_deferred("queue_free")
+
+
+func _on_Stats_hit():
+	_body.set_surface_material(0,hit_colour)
+	yield(get_tree().create_timer(0.15), "timeout")
+	_body.set_surface_material(0,normal_colour)
