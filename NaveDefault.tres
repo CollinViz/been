@@ -1,0 +1,5 @@
+[gd_resource type="NavigationMesh" format=2]
+
+[resource]
+agent/height = 1.0
+agent/radius = 1.0

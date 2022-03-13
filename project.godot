@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="been"
-run/main_scene="res://Level/Level1.tscn"
+run/main_scene="res://Level/start_zone.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -94,4 +94,5 @@ primary_action={
 
 [rendering]
 
+quality/filters/msaa=2
 environment/default_environment="res://default_env.tres"

@@ -1,4 +1,4 @@
-extends KinematicBody	
+extends KinematicBody
 
 export var Attack_Cool_Down = 1.0
 export var Resting_Cool_Down = 1.0
@@ -18,6 +18,8 @@ onready var AI_find:Timer= $AIFinding
 onready var detection_area:Area = $Detection
 onready var _body:MeshInstance = $body 
 onready var tween_hit:Tween = $Tween
+onready var debugQub:PackedScene = preload("res://debug/debugbox.tscn")
+
 
 var attack_target:Node
 var pos_before_attack:Vector3 = Vector3.ZERO
@@ -90,10 +92,14 @@ func _on_attackcooldown_timeout():
 			fsm.set_state(fsm.states.seeking)
 
 func _update_nave():
+	
 	if following_target && !following_target.is_queued_for_deletion():
 		nav_path_list = GameData.ActiveNaveMesh.get_simple_path(global_transform.origin,GameData.ActivePlayer.global_transform.origin)
 		index_in_path=0
-		next_target_possition = nav_path_list[index_in_path]
+		if nav_path_list.size()==0:
+			next_target_possition = Vector3.ZERO
+		else:			 
+			next_target_possition = nav_path_list[index_in_path]
 #		print("Path ",nav_path_list)
 
 func _on_AIFinding_timeout():
@@ -133,11 +139,21 @@ func move_to_next_index():
 	else:
 		next_target_possition = nav_path_list[index_in_path]
 
-
-func _on_Stats_hit(): 
+func doflash():
 	_body.set_surface_material(0,hit_colour)
 	yield(get_tree().create_timer(0.15), "timeout")
 	change_colour(fsm.state)
+	
+func _on_Stats_hit(_damage_direction:Vector3): 
+#	var forward = damage_direction
+#	var t:Transform = global_transform
+#	t.basis.z + (damage_direction.inverse().normalized()*10)
+#	next_target_possition =t.origin
+#	var d:Spatial = debugQub.instance()
+#	d.global_transform.origin=next_target_possition
+#	get_parent().add_child(d)
+#	fsm.set_state(fsm.states.hit)
+	call_deferred("doflash")
 
 func _on_Tween_tween_all_completed():
 	print("Tween done")

@@ -9,6 +9,7 @@ func _ready():
 	add_state("attacking")
 	add_state("returning")
 	add_state("resting") 
+	add_state("hit") 
 	#call_deferred("set_state",states.idle)
 
 
@@ -25,6 +26,8 @@ func _state_logic(delta):
 			parent.move_to_target(delta,true)
 		states.returning:  
 			parent.move_to_target(delta,true)
+		states.hit:  
+			parent.move_to_target(delta,true)
 	
 
 func _get_transition(_delta): 
@@ -36,6 +39,10 @@ func _get_transition(_delta):
 #		return states.returning
 	if state == states.returning && parent.hasArrived():
 		return states.resting
+#	if state == states.hit && parent.hasArrived() && parent.can_see_traget():
+#		return states.attacking
+#	if state == states.hit && parent.hasArrived() && !parent.can_see_traget():
+#		return states.seeking
 #	if state == states.walking && parent.hasArrived():
 #		return states.idle
 #	if state==states.idle && !parent.Is_Home():

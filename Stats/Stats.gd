@@ -6,7 +6,7 @@ export var Max_HP:=10
 export var Current_HP:=10
 
 signal death
-signal hit
+signal hit(damage_direction)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,10 +21,10 @@ func heal(Value):
 func get_hp():
 	return Current_HP
 	
-func take_damage(damage):
+func take_damage(damage,damage_direction=Vector3.ZERO):
 	Current_HP-=damage
 	if Current_HP<0:
 		emit_signal("death")
 	else:
-		emit_signal("hit")
+		emit_signal("hit",damage_direction)
 	print("Heath %d max %d"%[Current_HP,Max_HP])

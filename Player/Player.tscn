@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/GunController.gd" type="Script" id=2]
@@ -10,16 +10,20 @@
 radius = 0.5
 mid_height = 0.5
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="CubeMesh" id=4]
-material = SubResource( 3 )
+[sub_resource type="CubeMesh" id=3]
+material = SubResource( 2 )
 size = Vector3( 0.5, 0.25, 0.5 )
+
+[sub_resource type="CapsuleShape" id=4]
+radius = 0.5
+height = 0.5
 
 [sub_resource type="CapsuleShape" id=5]
 radius = 0.5
-height = 0.5
+height = 0.25
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
@@ -34,12 +38,12 @@ material/0 = ExtResource( 5 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="body"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -0.00444218, -0.324459, -0.44265 )
-mesh = SubResource( 4 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="GunController" type="Spatial" parent="."]
 script = ExtResource( 2 )
@@ -49,5 +53,13 @@ current_left_gun = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00754327, 0, -0.730338 )
 
 [node name="Stats" parent="." instance=ExtResource( 4 )]
+
+[node name="interactive" type="Area" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="interactive"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.25, 0 )
+shape = SubResource( 5 )
 [connection signal="death" from="Stats" to="." method="_on_Stats_death"]
 [connection signal="hit" from="Stats" to="." method="_on_Stats_hit"]
+[connection signal="body_exited" from="interactive" to="." method="_on_interactive_body_exited"]

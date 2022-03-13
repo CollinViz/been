@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/desk_computerCorner.obj-3a379813b741669df0ba87dfd288c9f9.mesh"
+
+[deps]
+
+files=[ "res://.import/desk_computerCorner.obj-3a379813b741669df0ba87dfd288c9f9.mesh" ]
+
+source_file="res://objects/OBJ format/desk_computerCorner.obj"
+dest_files=[ "res://.import/desk_computerCorner.obj-3a379813b741669df0ba87dfd288c9f9.mesh", "res://.import/desk_computerCorner.obj-3a379813b741669df0ba87dfd288c9f9.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

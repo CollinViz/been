@@ -19,7 +19,7 @@ func _on_killTimer_timeout():
 
 func _on_bullet1_body_entered(body:Node):
 	if body.has_node("Stats"):
-		body.get_node("Stats").take_damage(base_damage)
+		body.get_node("Stats").take_damage(base_damage,global_transform.basis.z.normalized())
 	print("Hit something")
 	queue_free()
 	

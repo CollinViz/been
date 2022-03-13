@@ -42,7 +42,12 @@ func _on_Stats_death():
 	call_deferred("queue_free")
 
 
-func _on_Stats_hit():
+func _on_Stats_hit(_direction):
 	_body.set_surface_material(0,hit_colour)
 	yield(get_tree().create_timer(0.15), "timeout")
 	_body.set_surface_material(0,normal_colour)
+
+
+func _on_interactive_body_exited(body:Node):
+	if body.is_in_group("door_lock"):
+		print("Door is locked")

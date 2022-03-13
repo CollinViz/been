@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/obj.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://NaveDefault.tres" type="NavigationMesh" id=3]
+[ext_resource path="res://Gimble.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Level/start_zone.gd" type="Script" id=5]
+[ext_resource path="res://World.tres" type="Environment" id=6]
+
+[node name="StartZone" type="Spatial"]
+script = ExtResource( 5 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 6 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
+
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+navmesh = ExtResource( 3 )
+
+[node name="mainMap" type="GridMap" parent="Navigation"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 0.5, 0.15, 0.5 )
+data = {
+"cells": PoolIntArray( 2, 0, 7, 5, 0, 7, 65534, 0, 7, 8, 1, 5, 65530, 1, 655365, 65532, 1, 1048582, 65542, 1, 1048578, 0, 3, 1048582, 2, 3, 1048582, 4, 3, 1048582, 6, 3, 1048582, 8, 3, 5, 65530, 3, 655365, 65532, 3, 1048582, 65534, 3, 1048582, 131070, 3, 1048578, 0, 5, 1441797, 2, 5, 1441797, 4, 5, 1441797, 6, 5, 1441797, 65532, 5, 1441797, 65534, 5, 1441797, 0, 65529, 1048581, 2, 65529, 1048581, 4, 65529, 1048581, 6, 65529, 1048581, 65532, 65529, 1048581, 65534, 65529, 1048581, 65537, 65529, 4, 8, 65531, 5, 65530, 65531, 655365, 65532, 65531, 1048582, 65537, 65531, 8, 131068, 65531, 1048578, 1, 65532, 7, 5, 65532, 7, 65534, 65532, 7, 8, 65533, 5, 65530, 65533, 655365, 65532, 65533, 1048582, 8, 65535, 5, 65530, 65535, 655365, 65532, 65535, 1048582 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 0, 0 )
+}
+
+[node name="Gimble" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 13.2466, 7.1559 )
+
+[node name="builderLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0 )
+omni_range = 50.0
+
+[editable path="Gimble"]
