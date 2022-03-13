@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://objects/obj.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Gimble.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Level/start_zone.gd" type="Script" id=5]
 [ext_resource path="res://World.tres" type="Environment" id=6]
+[ext_resource path="res://Enemy/EnemyBase.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Player/playerLook.tscn" type="PackedScene" id=8]
 
 [node name="StartZone" type="Spatial"]
 script = ExtResource( 5 )
@@ -14,14 +16,14 @@ script = ExtResource( 5 )
 environment = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, 18 )
 
 [node name="Navigation" type="Navigation" parent="."]
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
 navmesh = ExtResource( 3 )
 
-[node name="mainMap" type="GridMap" parent="Navigation"]
+[node name="mainMap" type="GridMap" parent="Navigation/NavigationMeshInstance"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 mesh_library = ExtResource( 1 )
 cell_size = Vector3( 0.5, 0.15, 0.5 )
@@ -34,10 +36,20 @@ __meta__ = {
 }
 
 [node name="Gimble" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 13.2466, 7.1559 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 13.2466, 25.1559 )
+distance = 5
+follow_target_path = NodePath("../Player")
 
 [node name="builderLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0 )
+visible = false
 omni_range = 50.0
+
+[node name="Enemy" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 17 )
+
+[node name="playerLook" parent="." instance=ExtResource( 8 )]
+camera_node = NodePath("../Gimble/Camera")
+player_node = NodePath("../Player")
 
 [editable path="Gimble"]

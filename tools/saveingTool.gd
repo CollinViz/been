@@ -21,7 +21,10 @@ func save_get()->int:
 func save_grid_data():
 	var grid:GridMap = get_node(gridMapPath)
 	var root:Spatial = get_node(sean_root_path)
-	
+	if grid ==null:
+		print("No grid")
+	if root ==null:
+		print("No root")
 	var FileName = root.name
 	var allCells= grid.get_used_cells()
 	var cellsList = []
@@ -31,6 +34,7 @@ func save_grid_data():
 		line.y = cel.y
 		line.z = cel.z
 		line.o = grid.get_cell_item_orientation(cel.x,cel.y,cel.z)
+		line.i = grid.get_cell_item(cel.x,cel.y,cel.z)
 		cellsList.append(line)
 		
 	var save_grid_data = File.new()
@@ -38,6 +42,7 @@ func save_grid_data():
 	var data = var2str(cellsList)
 	save_grid_data.store_line(data)
 	save_grid_data.close()
+	print("Data Saved to ","res://Level/%s.dat"%FileName)
 
 
 
