@@ -16,4 +16,5 @@ dest_files=[ "res://.import/satelliteDish_detailed.obj-9fb7d9d14b145640d013d9831
 generate_tangents=true
 scale_mesh=Vector3( 1, 1, 1 )
 offset_mesh=Vector3( 0, 0, 0 )
-optimize_mesh=true
+octahedral_compression=true
+optimize_mesh_flags=4286

@@ -16,4 +16,5 @@ dest_files=[ "res://.import/rocket_fuelA.obj-eca9c4c1d4d18d6d080f99e4a3a2d953.me
 generate_tangents=true
 scale_mesh=Vector3( 1, 1, 1 )
 offset_mesh=Vector3( 0, 0, 0 )
-optimize_mesh=true
+octahedral_compression=true
+optimize_mesh_flags=4286

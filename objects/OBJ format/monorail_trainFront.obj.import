@@ -16,4 +16,5 @@ dest_files=[ "res://.import/monorail_trainFront.obj-4e8ec502cf8f6f626e934029a7cf
 generate_tangents=true
 scale_mesh=Vector3( 1, 1, 1 )
 offset_mesh=Vector3( 0, 0, 0 )
-optimize_mesh=true
+octahedral_compression=true
+optimize_mesh_flags=4286
