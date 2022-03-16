@@ -1,6 +1,6 @@
 # Blender 3.1.0
 # www.blender.org
-mtllib corridor_wall.mtl
+mtllib wall.mtl
 o corridor_wall
 v -0.500000 0.000000 -0.500000
 v -0.500000 0.100000 0.500000

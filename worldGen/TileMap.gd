@@ -16,6 +16,7 @@ var leaves     = []
 var leaf_id    = 0
 var rooms      = []
 
+signal done(rooms)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,8 +40,40 @@ func generate():
 	create_rooms()   # Create rooms in the leaf leaves of the tree
 	join_rooms()     # Ensure all rooms connected
 	clear_deadends() # Remove deadend corridors
+	draw_doors()
+	
+	
 
-
+func draw_doors():
+	var numConnection =0
+	for room in rooms:
+		room.doors=[]
+		for x1 in range(room.x-1,room.x+room.w):			
+				if get_cell(x1,room.y-1)==Tiles.GROUND:
+					set_cell(x1,room.y-1,Tiles.TREE)
+					room.doors.append(Vector2(x1,room.y-1))
+					numConnection+=1
+				if get_cell(x1,room.y+room.h)==Tiles.GROUND:
+					set_cell(x1,room.y+room.h,Tiles.TREE)
+					room.doors.append(Vector2(x1,room.y+room.h))
+					numConnection+=1
+		 
+		for y1 in range(room.y-1,room.y+room.h):			
+				if get_cell(room.x-1,y1)==Tiles.GROUND:
+					set_cell(room.x-1,y1,Tiles.TREE)
+					room.doors.append(Vector2(room.x-1,y1))
+					numConnection+=1
+				if get_cell(room.x+room.w,y1)==Tiles.GROUND:
+					set_cell(room.x+room.w,y1,Tiles.TREE)	
+					room.doors.append(Vector2(room.x+room.w,y1))
+					numConnection+=1		
+	if numConnection>rooms.size()*2:
+		print("Bad map")
+		generate()
+	else:
+		if !Engine.is_editor_hint(): 
+			emit_signal("done",rooms)
+		
 # start by filling the map with roof tiles
 func fill_roof():
 	for x in range(0, map_w):
@@ -179,7 +212,7 @@ func connect_leaves(leaf1, leaf2):
 	for i in range(x, x+w):
 		for j in range(y, y+h):
 			if(get_cell(i, j) == Tiles.ROOF): set_cell(i, j, Tiles.GROUND)
-
+	
 
 func clear_deadends():
 	var done = false
